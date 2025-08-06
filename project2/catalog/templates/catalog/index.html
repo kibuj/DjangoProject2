@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Index page {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+        {%for product in queryset%}
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{product.image}}" class="card-img-top">
+                    <div class="card-body">
+                        {% if product.discount_price == product.price %}
+                            <div class="card_title">{{product.title}} -</div> <div class="card-text">{{product.discount_price}}</div>
+                        {%else%}
+                            <div class="card_title">{{product.title}} -</div> <div class="card-text">{{product.discount_price}}({{product.price}})</div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        {%endfor%}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+

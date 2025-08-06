@@ -9,4 +9,4 @@ class Product(models.Model):
     image = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.title + self.price
+        return self.title + "-" + str(self.price)
