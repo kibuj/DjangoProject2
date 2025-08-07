@@ -2,25 +2,73 @@
 
 {% block title %} Index page {% endblock %}
 
+
 {% block body %}
-    <div class="container">
-        <div class="row">
-        {%for product in queryset%}
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="{{product.image}}" class="card-img-top">
-                    <div class="card-body">
-                        {% if product.discount_price == product.price %}
-                            <div class="card_title">{{product.title}} -</div> <div class="card-text">{{product.discount_price}}</div>
-                        {%else%}
-                            <div class="card_title">{{product.title}} -</div> <div class="card-text">{{product.discount_price}}({{product.price}})</div>
-                        {%endif%}
-                    </div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form class='card card-sm'>
+            <div class="card-body row no-gutters align-items-center">
+                <div class="col">
+                    <input type="search" name="item_name" placeholder="Search here..." class="form-control form-control-borderless">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-success" type="submit">Search</button>
                 </div>
             </div>
-        {%endfor%}
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    {%for product in queryset%}
+    <div class="col-md-3">
+        <div class="card">
+            <img src="{{product.image}}" class="card-img-top product-image">
+            <div class="card-body">
+                {% if product.discount_price == product.price %}
+                <div class="card_title">{{product.title}}:</div>
+                <div class="card-text">₴ {{product.discount_price}}</div>
+                {%else%}
+                <div class="card_title">{{product.title}}:</div>
+                <div class="card-text">₴ {{product.discount_price}}
+                    <span class="price-color">({{product.price}})</span>
+                </div>
+                {%endif%}
+                <a href="/{{product.id}}" class="btn btn-warning">View Details</a>
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-warning">Add to Cart</a>
+            </div>
         </div>
     </div>
+    {%endfor%}
+</div>
+
+<div class="row">
+    <div class="col-md-3 offset-md-4">
+        <ul class="pagination">
+            {%if queryset.has_previous%}
+            <li class="page-item">
+                <a class='page-link' href="?page={{ queryset.previous_page_number }}">Previous</a>
+            </li>
+            {%endif%}
+            <li class="page-item">
+                <p class='page-link' href="?page={{ queryset.number }}">Current</p>
+            </li>
+            {% if queryset.has_next%}
+            <li class="page-item">
+                <a class='page-link' href="?page={{ queryset.next_page_number }}">Next</a>
+            </li>
+            {%endif%}
+            <li class="page-item">
+                <a class='page-link' href="?page={{ queryset.paginator.num_pages }}">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
 
 
 

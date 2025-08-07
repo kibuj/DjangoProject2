@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2>Кошик</h2>
+  <div class="row">
+      <div class="col-md-6">
+{% for item in cart %}
+        <div class="card">
+            <div class="card-body">
+                <img src="{{item.product.image}}" class="card-img-top product-image">
+                <strong>{{ item.product.name }}</strong> - {{ item.quantity }} x {{ item.product.price }} грн = {{ item.total_price }} грн
+                <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-warning">Видалити</a>
+            </div>
+        </div>
+{% empty %}
+  <p>Кошик порожній.</p>
+{% endfor %}
+        </div>
+  </div>
+
+<p>Загалом: {{ cart.get_total_price }} грн</p>
+
+{%endblock%}
+

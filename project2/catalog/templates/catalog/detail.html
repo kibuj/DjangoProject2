@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} Detail page {% endblock %}
+
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{{queryset.image}}"  class="img-responsive">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{queryset.title}}
+                </div>
+            </div>
+
+            {%if queryset.price != queryset.discount_price%}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-text">{{queryset.discount_price}}
+                        <span class="price-color">{{queryset.price}}</span>
+                    </div>
+                </div>
+            </div>
+            {%else%}
+            <div class="row">
+                <div class="col-md-12">
+                    {{queryset.discount_price}}
+                </div>
+            </div>
+            {%endif%}
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{queryset.description}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
